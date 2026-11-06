@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DSA Interview 150 — LeetCode Prep Handbook</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ===== TOAST NOTIFICATION ===== -->
+<div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+<!-- ===== MOBILE OVERLAY ===== -->
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+<!-- ===== APP SHELL ===== -->
+<div class="app-shell">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="2" width="9" height="9" rx="2" fill="var(--accent)"/>
+          <rect x="13" y="2" width="9" height="9" rx="2" fill="var(--accent)" opacity="0.5"/>
+          <rect x="2" y="13" width="9" height="9" rx="2" fill="var(--accent)" opacity="0.5"/>
+          <rect x="13" y="13" width="9" height="9" rx="2" fill="var(--accent)"/>
+        </svg>
+        <span class="logo-text">DSA Interview 150</span>
+      </div>
+      <button class="sidebar-close-btn" id="sidebar-close" aria-label="Close sidebar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Main navigation">
+      <div class="nav-section">
+        <button class="nav-item active" data-view="dashboard" aria-current="page">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </button>
+        <button class="nav-item" data-view="all-questions">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          All Questions
+          <span class="nav-badge" id="nav-total-count">150</span>
+        </button>
+        <button class="nav-item" data-view="bookmarks">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          Bookmarks
+          <span class="nav-badge" id="nav-bookmark-count">0</span>
+        </button>
+        <button class="nav-item" data-view="revision">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg>
+          Revision List
+          <span class="nav-badge" id="nav-revision-count">0</span>
+        </button>
+        <button class="nav-item" data-view="completed">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Completed
+          <span class="nav-badge" id="nav-completed-count">0</span>
+        </button>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-label">Topics</div>
+        <div id="topic-nav-list" class="topic-nav-list">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="nav-item" data-view="settings">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN AREA ===== -->
+  <div class="main-area">
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="search-wrapper" role="search">
+          <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="search" id="global-search" class="search-input" placeholder="Search questions, topics, #number… (press /)" aria-label="Search questions" autocomplete="off" />
+          <kbd class="search-kbd" aria-hidden="true">/</kbd>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
+          <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT VIEWS -->
+    <main class="content" id="main-content">
+
+      <!-- DASHBOARD VIEW -->
+      <section id="view-dashboard" class="view active" aria-label="Dashboard">
+        <div class="view-header">
+          <h1 class="view-title">Dashboard</h1>
+          <p class="view-subtitle">Track your LeetCode Top Interview 150 preparation progress.</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon stat-icon--total">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="stat-value" id="stat-total">150</div>
+            <div class="stat-label">Total Questions</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon stat-icon--completed">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="stat-value" id="stat-completed">0</div>
+            <div class="stat-label">Completed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon stat-icon--remaining">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="stat-value" id="stat-remaining">150</div>
+            <div class="stat-label">Remaining</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon stat-icon--bookmark">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="stat-value" id="stat-bookmarks">0</div>
+            <div class="stat-label">Bookmarked</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon stat-icon--revision">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg>
+            </div>
+            <div class="stat-value" id="stat-revision">0</div>
+            <div class="stat-label">For Revision</div>
+          </div>
+          <div class="stat-card stat-card--progress">
+            <div class="progress-circle-wrapper">
+              <svg class="progress-circle" viewBox="0 0 80 80" width="80" height="80" aria-hidden="true">
+                <circle class="progress-track" cx="40" cy="40" r="34" fill="none" stroke-width="6"/>
+                <circle class="progress-fill" id="dash-progress-circle" cx="40" cy="40" r="34" fill="none" stroke-width="6" stroke-dasharray="213.6" stroke-dashoffset="213.6" stroke-linecap="round" transform="rotate(-90 40 40)"/>
+              </svg>
+              <div class="progress-center-text">
+                <span class="progress-pct" id="dash-pct">0%</span>
+              </div>
+            </div>
+            <div class="stat-label">Overall Progress</div>
+          </div>
+        </div>
+
+        <!-- Topic Progress -->
+        <div class="section-card">
+          <h2 class="section-title">Topic Progress</h2>
+          <div class="topic-progress-list" id="topic-progress-list">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Recent & Continue -->
+        <div class="dash-bottom-grid">
+          <div class="section-card">
+            <h2 class="section-title">Recently Completed</h2>
+            <div id="recent-completed-list" class="recent-list">
+              <p class="empty-state-text">No completed questions yet. Start solving!</p>
+            </div>
+          </div>
+          <div class="section-card">
+            <h2 class="section-title">Needs Revision</h2>
+            <div id="needs-revision-list" class="recent-list">
+              <p class="empty-state-text">No questions marked for revision yet.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="continue-banner" id="continue-banner" style="display:none">
+          <div>
+            <div class="continue-label">Continue where you left off</div>
+            <div class="continue-title" id="continue-title"></div>
+          </div>
+          <button class="btn btn--primary" id="continue-btn">Open Question</button>
+        </div>
+      </section>
+
+      <!-- ALL QUESTIONS VIEW -->
+      <section id="view-all-questions" class="view" aria-label="All Questions">
+        <div class="view-header">
+          <h1 class="view-title">All Questions</h1>
+          <div class="filter-bar">
+            <select id="filter-topic" class="filter-select" aria-label="Filter by topic">
+              <option value="">All Topics</option>
+            </select>
+            <select id="filter-difficulty" class="filter-select" aria-label="Filter by difficulty">
+              <option value="">All Difficulties</option>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+            <select id="filter-status" class="filter-select" aria-label="Filter by status">
+              <option value="">All Status</option>
+              <option value="completed">Completed</option>
+              <option value="not-completed">Not Completed</option>
+              <option value="bookmarked">Bookmarked</option>
+              <option value="revision">Revision List</option>
+            </select>
+            <button class="btn btn--ghost btn--sm" id="clear-filters">Clear</button>
+          </div>
+        </div>
+        <div class="questions-table-wrapper" role="region" aria-label="Questions list">
+          <table class="questions-table" id="questions-table">
+            <thead>
+              <tr>
+                <th class="col-num sortable" data-sort="id" scope="col">
+                  # <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </th>
+                <th class="col-title" scope="col">Title</th>
+                <th class="col-topic" scope="col">Topic</th>
+                <th class="col-diff sortable" data-sort="difficulty" scope="col">
+                  Difficulty <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </th>
+                <th class="col-status" scope="col">Status</th>
+                <th class="col-actions" scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="questions-tbody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+        <div class="questions-count" id="questions-count">Showing 150 questions</div>
+      </section>
+
+      <!-- BOOKMARKS VIEW -->
+      <section id="view-bookmarks" class="view" aria-label="Bookmarks">
+        <div class="view-header">
+          <h1 class="view-title">Bookmarks</h1>
+          <p class="view-subtitle">Questions you have bookmarked for quick access.</p>
+        </div>
+        <div id="bookmarks-list" class="filtered-list">
+          <div class="empty-state">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            <p>No bookmarks yet. Click the bookmark icon on any question.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- REVISION VIEW -->
+      <section id="view-revision" class="view" aria-label="Revision List">
+        <div class="view-header">
+          <h1 class="view-title">Revision List</h1>
+          <p class="view-subtitle">Questions marked for extra revision.</p>
+        </div>
+        <div id="revision-list" class="filtered-list">
+          <div class="empty-state">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg>
+            <p>No questions in revision list. Mark questions you want to revisit.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPLETED VIEW -->
+      <section id="view-completed" class="view" aria-label="Completed Questions">
+        <div class="view-header">
+          <h1 class="view-title">Completed Questions</h1>
+          <p class="view-subtitle">Questions you have marked as completed.</p>
+        </div>
+        <div id="completed-list" class="filtered-list">
+          <div class="empty-state">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <p>No completed questions yet. Start solving!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SETTINGS VIEW -->
+      <section id="view-settings" class="view" aria-label="Settings">
+        <div class="view-header">
+          <h1 class="view-title">Settings</h1>
+        </div>
+        <div class="settings-grid">
+          <div class="settings-card">
+            <h3 class="settings-card-title">Appearance</h3>
+            <div class="settings-row">
+              <div>
+                <div class="settings-label">Theme</div>
+                <div class="settings-desc">Switch between light and dark mode.</div>
+              </div>
+              <button class="btn btn--secondary" id="settings-theme-toggle">Toggle Theme</button>
+            </div>
+          </div>
+          <div class="settings-card">
+            <h3 class="settings-card-title">Keyboard Shortcuts</h3>
+            <div class="shortcuts-list">
+              <div class="shortcut-row"><kbd>/</kbd><span>Focus search</span></div>
+              <div class="shortcut-row"><kbd>N</kbd><span>Next question</span></div>
+              <div class="shortcut-row"><kbd>P</kbd><span>Previous question</span></div>
+              <div class="shortcut-row"><kbd>B</kbd><span>Bookmark current</span></div>
+              <div class="shortcut-row"><kbd>C</kbd><span>Mark completed</span></div>
+              <div class="shortcut-row"><kbd>Esc</kbd><span>Go back / Close</span></div>
+            </div>
+          </div>
+          <div class="settings-card settings-card--danger">
+            <h3 class="settings-card-title">Reset Progress</h3>
+            <p class="settings-desc">This will permanently clear all your progress, bookmarks, and revision list.</p>
+            <button class="btn btn--danger" id="reset-progress-btn">Reset All Progress</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- QUESTION DETAIL VIEW -->
+      <section id="view-question-detail" class="view" aria-label="Question Detail">
+        <div id="question-detail-content">
+          <!-- Populated dynamically -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- Confirm Dialog -->
+<div id="confirm-dialog" class="dialog-overlay" role="dialog" aria-modal="true" aria-labelledby="dialog-title" style="display:none">
+  <div class="dialog">
+    <h2 class="dialog-title" id="dialog-title">Confirm Reset</h2>
+    <p class="dialog-body" id="dialog-body">Are you sure you want to reset all progress? This cannot be undone.</p>
+    <div class="dialog-actions">
+      <button class="btn btn--ghost" id="dialog-cancel">Cancel</button>
+      <button class="btn btn--danger" id="dialog-confirm">Reset</button>
+    </div>
+  </div>
+</div>
+
+<script src="data/q_part1.js"></script>
+<script src="data/q_part2.js"></script>
+<script src="data/q_part3.js"></script>
+<script src="data/q_part4.js"></script>
+<script src="data/questions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
